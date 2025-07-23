@@ -9,9 +9,17 @@ license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "yfinance (>=0.2.65,<0.3.0)",
+    "pandas (>=2.3.1,<3.0.0)",
+    "matplotlib (>=3.10.3,<4.0.0)",
+    "numpy (>=2.3.1,<3.0.0)",
+    "pyarrow (>=21.0.0,<22.0.0)",
 ]
 
 [tool.poetry]
+packages = [
+    { include = "foundations" }
+]
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.12.4"
@@ -41,3 +49,6 @@ select = ["E", "F", "I"]
 python_version = "3.13"
 strict = true
 ignore_missing_imports = true
+
+[tool.poetry.scripts]
+market_data_101 = "foundations.market_data:test"
