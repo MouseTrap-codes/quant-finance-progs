@@ -45,7 +45,7 @@ def plot_price_and_return_logs(ticker: str, start: str, end: str) -> None:
     plt.show()
 
 
-def test() -> None:
+def testMarketData() -> None:
     ticker = "AAPL"
     # test from start to end of 2024
     start = "2024-01-01"
@@ -53,4 +53,4 @@ def test() -> None:
     plot_price_and_return_logs(ticker, start, end)
 
 
-test()
+testMarketData()
