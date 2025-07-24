@@ -1,4 +1,5 @@
 import os
+from typing import cast
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -8,12 +9,18 @@ import yfinance as yf
 
 def load_yfinance(ticker: str, start: str, end: str) -> pd.DataFrame:
     os.makedirs("./data", exist_ok=True)
-    df = pd.DataFrame()
-    if not os.path.exists(f"./data/{ticker}-{start}to{end}.parquet"):
-        df = yf.download(ticker, start, end)
-        df.to_parquet(f"./data/{ticker}-{start}to{end}.parquet")
+    path_name = f"./data/{ticker}-{start}to{end}.parquet"
+
+    df: pd.DataFrame
+    if os.path.exists(path_name):
+        df = pd.read_parquet(path_name)
     else:
-        df = pd.read_parquet(f"./data/{ticker}-{start}to{end}.parquet")
+        df = cast(pd.DataFrame, yf.download(ticker, start=start, end=end))
+        if df.empty:
+            raise ValueError(
+                f"No data returned for {ticker} between {start} and {end}."
+            )
+        df.to_parquet(path_name)
 
     return df
 
@@ -24,7 +31,7 @@ def plot_price_and_return_logs(ticker: str, start: str, end: str) -> None:
     prices = df["Close"]
     log_returns = np.log(df["Close"] / df["Close"].shift(1))
 
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
+    _, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
 
     # first plot: Adjusted Closing prices
     ax1.plot(prices, label="Adj Close", color="blue")
