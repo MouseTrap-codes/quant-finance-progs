@@ -4,10 +4,30 @@ from typing import cast
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import pandera as pa
 import yfinance as yf
 
 
+def create_yfinance_schema(ticker: str) -> pa.DataFrameSchema:
+    schema = pa.DataFrameSchema(
+        {
+            ("Close", ticker): pa.Column(pa.Float64),
+            ("High", ticker): pa.Column(pa.Float64),
+            ("Low", ticker): pa.Column(pa.Float64),
+            ("Open", ticker): pa.Column(pa.Float64),
+            ("Volume", ticker): pa.Column(pa.Int64, nullable=True),
+        },
+        index=pa.Index(pa.DateTime),
+        strict=True,
+        coerce=True,
+    )
+
+    return schema
+
+
 def load_yfinance(ticker: str, start: str, end: str) -> pd.DataFrame:
+    schema = create_yfinance_schema(ticker)
+
     os.makedirs("./data", exist_ok=True)
     path_name = f"./data/{ticker}-{start}to{end}.parquet"
 
@@ -20,6 +40,7 @@ def load_yfinance(ticker: str, start: str, end: str) -> pd.DataFrame:
             raise ValueError(
                 f"No data returned for {ticker} between {start} and {end}."
             )
+        df = schema.validate(df)
         df.to_parquet(path_name)
 
     return df
