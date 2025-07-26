@@ -39,6 +39,10 @@ def load_yfinance(ticker: str, start: str, end: str) -> pd.DataFrame:
             pd.DataFrame,
             yf.download(ticker, start=start, end=end, multi_level_index=False),
         )
+
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = df.columns.get_level_values(0)  # flatten index
+
         df.index = pd.to_datetime(df.index).tz_localize(None)
         if df.empty:
             raise ValueError(
