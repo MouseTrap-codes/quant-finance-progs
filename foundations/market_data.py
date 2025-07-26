@@ -4,18 +4,18 @@ from typing import cast
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import pandera as pa
+import pandera.pandas as pa
 import yfinance as yf
 
 
 def create_yfinance_schema(ticker: str) -> pa.DataFrameSchema:
     schema = pa.DataFrameSchema(
         {
-            ("Close", ticker): pa.Column(pa.Float64),
-            ("High", ticker): pa.Column(pa.Float64),
-            ("Low", ticker): pa.Column(pa.Float64),
-            ("Open", ticker): pa.Column(pa.Float64),
-            ("Volume", ticker): pa.Column(pa.Int64, nullable=True),
+            "Close": pa.Column(pa.Float64),
+            "High": pa.Column(pa.Float64),
+            "Low": pa.Column(pa.Float64),
+            "Open": pa.Column(pa.Float64),
+            "Volume": pa.Column(pa.Int64, nullable=True),
         },
         index=pa.Index(pa.DateTime),
         strict=True,
@@ -35,7 +35,11 @@ def load_yfinance(ticker: str, start: str, end: str) -> pd.DataFrame:
     if os.path.exists(path_name):
         df = pd.read_parquet(path_name)
     else:
-        df = cast(pd.DataFrame, yf.download(ticker, start=start, end=end))
+        df = cast(
+            pd.DataFrame,
+            yf.download(ticker, start=start, end=end, multi_level_index=False),
+        )
+        df.index = pd.to_datetime(df.index).tz_localize(None)
         if df.empty:
             raise ValueError(
                 f"No data returned for {ticker} between {start} and {end}."

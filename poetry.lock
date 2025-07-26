@@ -110,6 +110,22 @@ jupyter = ["ipython (>=7.8.0)", "tokenize-rt (>=3.2.0)"]
 uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
+name = "calplot"
+version = "0.1.7.5"
+description = "Calendar heatmaps from Pandas time series data"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "calplot-0.1.7.5.tar.gz", hash = "sha256:3c1781bd1ded9ef23fa58d512c7e2a3e3c2e4e81da96d870b9223004aaa6fcfa"},
+]
+
+[package.dependencies]
+matplotlib = "*"
+numpy = "*"
+pandas = ">=1"
+
+[[package]]
 name = "certifi"
 version = "2025.7.14"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -2645,4 +2661,4 @@ repair = ["scipy (>=1.6.3)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "0c77bccb0b231ca0ab4bf5f7b0f3a31d2fc6f7b2a5e1fafba2f0117610102f93"
+content-hash = "e44ddc4458fc52988b5b2a90e7d6f882b3b7abab74e633b16d4be62cb4114ed4"

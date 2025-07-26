@@ -28,3 +28,4 @@ htmlcov/
 .coverage
 coverage.xml
 *.tar
+__pycache__
