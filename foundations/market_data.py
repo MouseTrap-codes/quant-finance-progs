@@ -33,6 +33,7 @@ def load_yfinance(ticker: str, start: str, end: str) -> pd.DataFrame:
 
     df: pd.DataFrame
     if os.path.exists(path_name):
+        print("Loading from cache")
         df = pd.read_parquet(path_name)
     else:
         df = cast(
