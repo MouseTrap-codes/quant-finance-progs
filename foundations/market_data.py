@@ -90,4 +90,4 @@ def testMarketData() -> None:
     plot_price_and_return_logs(ticker, start, end)
 
 
-testMarketData()
+# testMarketData()

@@ -13,7 +13,6 @@ build/
 .poetry/
 .mypy_cache/
 .ruff_cache/
-data/
 *.log
 *.out
 .vscode/
@@ -29,3 +28,4 @@ htmlcov/
 coverage.xml
 *.tar
 __pycache__
+data/
