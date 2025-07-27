@@ -20,6 +20,7 @@ dependencies = [
     "statsmodels (>=0.14.5,<0.15.0)",
     "pandera (>=0.25.0,<0.26.0)",
     "calplot (>=0.1.7.5,<0.2.0.0)",
+    "argparse (>=1.4.0,<2.0.0)",
 ]
 
 [tool.poetry]
@@ -50,6 +51,8 @@ line_length = 88
 
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint]
 select = ["E", "F", "I"]
 
 [tool.mypy]
