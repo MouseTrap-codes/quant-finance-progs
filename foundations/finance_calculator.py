@@ -119,6 +119,8 @@ def plot_heatmap_of_returns(log_returns: pd.Series) -> None:
         dayticks=list(range(7)),
     )
 
+    plt.show()
+
 
 def execute_market_data(args: argparse.Namespace) -> None:
     df = load_yfinance(ticker=args.ticker, start=args.start, end=args.end)
