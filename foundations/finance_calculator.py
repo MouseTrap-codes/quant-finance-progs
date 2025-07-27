@@ -212,7 +212,7 @@ def main() -> None:
     parser.add_argument(
         "--rate",
         type=float,
-        help="Discount rate for NPV calculation (e.g. 0.1 for 10%).",
+        help="Discount rate for NPV calculation (e.g. 0.1 for 10%%).",
     )
 
     # market data
