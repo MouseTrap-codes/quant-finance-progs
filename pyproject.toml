@@ -62,3 +62,4 @@ ignore_missing_imports = true
 
 [tool.poetry.scripts]
 market_data_101 = "foundations.market_data:test"
+finance_calculator = "foundations.finance_calculator:main"
